@@ -81,9 +81,11 @@ class ApnChannel
             return;
         }
 
-        $this->openConnection();
 
         foreach ($tokens as $token) {
+            if (! $this->openConnection()) {
+                continue;
+            }
             try {
                 $alert = new Alert();
                 $alert->setTitle($message->title);
@@ -111,9 +113,9 @@ class ApnChannel
             } catch (Exception $e) {
                 throw SendingFailed::create($e);
             }
+            $this->closeConnection();
         }
 
-        $this->closeConnection();
     }
 
     /**

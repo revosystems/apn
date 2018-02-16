@@ -81,11 +81,8 @@ class ApnChannel
             return;
         }
 
-
         foreach ($tokens as $token) {
-            if (! $this->openConnection()) {
-                continue;
-            }
+            $this->openConnection();
             try {
                 $alert = new Alert();
                 $alert->setTitle($message->title);

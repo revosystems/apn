@@ -64,9 +64,9 @@ class ChannelTest extends PHPUnit_Framework_TestCase
         $responseFail->setCode(MessageResponse::RESULT_INVALID_TOKEN);
 
         $this->events->shouldReceive('fire')->once();
-        $this->client->shouldReceive('open')->once();
+        $this->client->shouldReceive('open')->twice();
         $this->client->shouldReceive('send')->twice()->andReturn($responseOk, $responseFail);
-        $this->client->shouldReceive('close')->once();
+        $this->client->shouldReceive('close')->twice();
 
         $this->feedbackClient->shouldReceive('close');  // Close is called on destruct
 
